@@ -41,9 +41,10 @@ img { max-width: 100%; display: block; }
 .hero-layout > h1 {
   max-width: 100%;
   width: 100%;
-  font-size: clamp(3.7rem, 7.4vw, 7.8rem);
-  line-height: 0.97;
-  letter-spacing: -0.035em;
+  font-size: clamp(3.2rem, 5.1vw, 5.6rem);
+  font-weight: 500;
+  line-height: 1.07;
+  letter-spacing: -0.025em;
   text-wrap: balance;
   margin: 0 0 clamp(2.5rem, 5vw, 5rem);
 }
@@ -77,6 +78,17 @@ h1, h2, h3 { font-family: 'Cormorant Garamond', Georgia, serif; margin: 0 0 1rem
 h1 { font-size: clamp(2.5rem, 6vw, 4.8rem); max-width: 11ch; }
 h2 { font-size: clamp(1.9rem, 4vw, 3rem); max-width: 15ch; }
 h3 { font-size: 1.45rem; }
+/* Editorial headings use the available content width rather than a narrow 15ch measure. */
+.wide-section-heading { max-width: 100%; }
+.one-line-heading {
+  font-size: clamp(1.85rem, 3.1vw, 2.55rem);
+  white-space: nowrap;
+}
+.profile-name-heading {
+  max-width: 100%;
+  white-space: nowrap;
+  font-size: clamp(2rem, 3.25vw, 2.8rem);
+}
 p { margin: 0 0 1rem; }
 .lead { font-size: 1.1rem; color: var(--muted); max-width: 54ch; }
 .lead-small { font-size: 1.02rem; color: var(--muted); }
@@ -157,14 +169,16 @@ p { margin: 0 0 1rem; }
   .contact-card { justify-self: start; }
   .hero { padding-top: 4.2rem; }
   h1, h2 { max-width: none; }
-  .hero-layout > h1 { font-size: clamp(3.4rem, 9vw, 6rem); }
+  .hero-layout > h1 { font-size: clamp(3rem, 6.8vw, 4.8rem); }
+  .one-line-heading { white-space: normal; }
 }
 
 @media (max-width: 640px) {
   .nav-wrap { align-items: flex-start; flex-direction: column; }
   .nav { gap: .8rem 1rem; }
   .hero { padding-top: 3.4rem; }
-  .hero-layout > h1 { font-size: clamp(2.9rem, 11.5vw, 4.5rem); }
+  .hero-layout > h1 { font-size: clamp(2.75rem, 9vw, 3.65rem); }
+  .profile-name-heading { white-space: normal; }
   .btn { width: 100%; }
   .profile-list div { grid-template-columns: 1fr; gap: .15rem; }
 }
