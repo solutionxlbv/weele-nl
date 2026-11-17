@@ -198,3 +198,10 @@ p { margin: 0 0 1rem; }
 
 .hero-copy .lead, .lead-small { max-width: 58ch; }
 .card h3, .profile-card h3, .contact-card strong { letter-spacing: 0; }
+
+/* Keep the name together in the contact heading on desktop. */
+.contact-heading { max-width: 100%; }
+.contact-name { white-space: nowrap; }
+@media (max-width: 640px) {
+  .contact-name { white-space: normal; }
+}
