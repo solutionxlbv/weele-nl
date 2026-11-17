@@ -37,7 +37,28 @@ img { max-width: 100%; display: block; }
 .brand { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; font-size: 2rem; color: var(--text); letter-spacing: 0; line-height: 1; }
 .nav { display: flex; gap: 1.25rem; flex-wrap: wrap; }
 .nav a { color: var(--muted); font-weight: 500; }
-.hero { padding: 5.8rem 0 3rem; }
+.hero { padding: clamp(3.4rem, 6vw, 5.8rem) 0 3rem; }
+.hero-layout > h1 {
+  max-width: 100%;
+  width: 100%;
+  font-size: clamp(3.7rem, 7.4vw, 7.8rem);
+  line-height: 0.97;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+  margin: 0 0 clamp(2.5rem, 5vw, 5rem);
+}
+.hero-details {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: start;
+}
+.hero-details .hero-copy {
+  border-top: 1px solid var(--line);
+  padding-top: 1.7rem;
+}
+.hero-details .hero-art { align-self: start; }
+
 .hero-grid, .two-col, .profile-grid, .footer-grid { display: grid; gap: 2rem; align-items: center; }
 .hero-grid { grid-template-columns: 1.12fr 0.88fr; }
 .two-col { grid-template-columns: 1fr 1fr; }
@@ -132,16 +153,18 @@ p { margin: 0 0 1rem; }
 .footer-bottom { padding-top: 1.25rem; color: var(--muted); font-size: .95rem; }
 
 @media (max-width: 980px) {
-  .hero-grid, .two-col, .two-col.reverse, .profile-grid, .footer-grid, .cards-4 { grid-template-columns: 1fr; }
+  .hero-grid, .hero-details, .two-col, .two-col.reverse, .profile-grid, .footer-grid, .cards-4 { grid-template-columns: 1fr; }
   .contact-card { justify-self: start; }
   .hero { padding-top: 4.2rem; }
   h1, h2 { max-width: none; }
+  .hero-layout > h1 { font-size: clamp(3.4rem, 9vw, 6rem); }
 }
 
 @media (max-width: 640px) {
   .nav-wrap { align-items: flex-start; flex-direction: column; }
   .nav { gap: .8rem 1rem; }
   .hero { padding-top: 3.4rem; }
+  .hero-layout > h1 { font-size: clamp(2.9rem, 11.5vw, 4.5rem); }
   .btn { width: 100%; }
   .profile-list div { grid-template-columns: 1fr; gap: .15rem; }
 }
