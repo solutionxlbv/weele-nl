@@ -36,42 +36,58 @@ const {
   noindex = false,
 } = Astro.props;
 
+// weele.nl is Henk's personal page: the Person is the main entity.
+// SolutionXL BV is referenced by the same @id that solutionxl.nl uses, so search
+// engines treat both sites as one person + one company instead of two competitors.
 const structuredData = {
   '@context': 'https://schema.org',
   '@graph': [
+    {
+      '@type': 'ProfilePage',
+      '@id': 'https://www.weele.nl/#profilepage',
+      url: 'https://www.weele.nl/',
+      name: 'Henk van der Weele | Interim IT & Software Leadership',
+      inLanguage: 'nl-NL',
+      isPartOf: { '@id': 'https://www.weele.nl/#website' },
+      mainEntity: { '@id': 'https://www.weele.nl/#henk' },
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://www.weele.nl/#website',
+      url: 'https://www.weele.nl/',
+      name: 'Henk van der Weele',
+      inLanguage: 'nl-NL',
+      publisher: { '@id': 'https://www.weele.nl/#henk' },
+    },
     {
       '@type': 'Person',
       '@id': 'https://www.weele.nl/#henk',
       name: 'Henk van der Weele',
       url: 'https://www.weele.nl/',
-      jobTitle: 'Interim IT & Software Leader',
+      jobTitle: 'Interim IT- & softwareleider',
       description:
-        'Onafhankelijk interim consultant voor engineering leadership, productontwikkeling en software delivery.',
+        'Onafhankelijk interim IT- en softwareleider voor engineering leadership, productontwikkeling en software delivery.',
+      telephone: '+31646741921',
+      email: 'info@solutionxl.nl',
       sameAs: ['https://www.linkedin.com/in/weele/'],
+      knowsLanguage: ['nl', 'en'],
+      alumniOf: { '@type': 'EducationalOrganization', name: 'HEAO BI Amsterdam' },
       knowsAbout: [
-        'Software engineering leadership',
         'Engineering management',
         'Software delivery',
-        'Product development',
-        'IT transformation',
-        'Banking',
-        'Luchtvaart',
-        'Energie',
-        'Publieke sector',
+        'Product leadership',
+        'IT-transformatie',
+        'Interim management',
+        'Release management',
       ],
-      worksFor: { '@id': 'https://www.weele.nl/#business' },
+      worksFor: { '@id': 'https://www.solutionxl.nl/#organization' },
     },
     {
       '@type': 'ProfessionalService',
-      '@id': 'https://www.weele.nl/#business',
+      '@id': 'https://www.solutionxl.nl/#organization',
       name: 'SolutionXL BV',
-      url: 'https://www.weele.nl/',
-      description:
-        'Onafhankelijke consultancy en tijdelijke versterking voor IT, software engineering, productontwikkeling en software delivery.',
+      url: 'https://www.solutionxl.nl/',
       founder: { '@id': 'https://www.weele.nl/#henk' },
-      areaServed: { '@type': 'Country', name: 'Nederland' },
-      telephone: '+31-6-46741921',
-      email: 'info@solutionxl.nl',
     },
   ],
 };
@@ -100,11 +116,11 @@ const structuredData = {
 
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="nl_NL" />
-    <meta property="og:site_name" content="Henk van der Weele | SolutionXL BV" />
+    <meta property="og:site_name" content="Henk van der Weele" />
     <meta property="og:title" content={title} />
     <meta
       property="og:description"
-      content="Onafhankelijke interim consultancy voor engineering leadership, productontwikkeling en software delivery in complexe organisaties."
+      content="Interim IT- en softwareleider voor engineering leadership, productontwikkeling en software delivery in complexe organisaties."
     />
     {canonical && <meta property="og:url" content={canonical} />}
     <meta property="og:image" content={ogImage} />

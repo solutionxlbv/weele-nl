@@ -1,6 +1,10 @@
 # weele.nl
 
-Persoonlijke consultancywebsite van Henk van der Weele (SolutionXL BV). Astro · static · Cloudflare Pages.
+Persoonlijke profielwebsite van Henk van der Weele. Astro · static · Cloudflare Pages.
+
+weele.nl gaat over Henk als professional; solutionxl.nl over het bedrijf. Positionering, contentregels en deploy-governance staan in [`.claude/design-system.md`](.claude/design-system.md) — lees die vóór je iets wijzigt.
+
+**Werkwijze:** nooit direct naar `main`. Feature branch → PR → Cloudflare-preview → merge door Henk.
 
 ## Stack
 

@@ -1,10 +1,49 @@
 # Design System — weele.nl
 
-Persoonlijke consultancywebsite van Henk van der Weele (SolutionXL BV). Elegant-premium stijl: serif-forward, warm neutraal met één goud-accent.
+Persoonlijke profielwebsite van **Henk van der Weele** als professional. Elegant-premium stijl: serif-forward, warm neutraal met één goud-accent.
+
+> **Positionering in één zin:** weele.nl gaat over Henk (wie hij is, wat hij gedaan heeft, welke rollen hij vervult); solutionxl.nl gaat over het bedrijf (diensten, cases). SolutionXL BV verschijnt op weele.nl alleen als de vorm waarin Henk contracteert, met een link naar solutionxl.nl. Zie §0.
 
 **Dit document is bindend voor AI-tools (Frontend Design, Playwright MCP, Claude Code).** Gebruik uitsluitend onderstaande tokens, componenten en patronen. **Verzin geen nieuwe kleuren, fonts, spacing-waarden of componentvarianten.** Als iets ontbreekt voor een nieuwe behoefte: eerst voorstellen, niet eenzijdig toevoegen.
 
 Single source of truth: `src/styles/global.css`.
+
+---
+
+## 0. Content-governance (besloten 18-11-2026)
+
+Deze regels gaan vóór design-wensen. Een wijziging die ertegenin gaat, eerst voorleggen aan Henk.
+
+### Rolverdeling tussen de sites
+
+| | weele.nl | solutionxl.nl |
+|---|---|---|
+| Onderwerp | Henk als persoon en professional | SolutionXL BV als bedrijf |
+| Inhoud | Profiel, rollen, ervaring, cv, beschikbaarheid, contact | Diensten, dienstpagina's, cases, bewijs |
+| Zoekintentie | Naam + rol ("Henk van der Weele", "interim head of engineering") | Dienst ("interim IT management", "software delivery") |
+| Schrijfstijl | **Ik-vorm** ("Ik help organisaties…") | Wij/bedrijfsvorm |
+
+### Regels voor weele.nl
+
+- **Wordmark is "Henk van der Weele"**, nooit "SolutionXL BV".
+- SolutionXL BV komt alleen voor als contractvorm: sectie `#solutionxl`, de regel "Contractering: via SolutionXL BV" in de samenvatting, het bedrijfsblok in de contactkaart en de footer (`© Henk van der Weele · SolutionXL BV`). Altijd met link naar `https://www.solutionxl.nl/`.
+- **Geen dienstpagina's, geen cases** op weele.nl. Die horen op solutionxl.nl; hier staan *rollen*.
+- **Ervaringstijdlijn = één waarheid.** Jaartallen en rollen in `experience` (`src/pages/index.astro`) zijn identiek aan `src/components/Bewijs.astro` in `solutionxlbv/website` én aan het cv. Wijzig nooit één bron zonder de andere twee.
+- Geen claims, cijfers of jaartallen toevoegen die niet in het cv of op solutionxl.nl staan.
+- Geen generieke AI-blogartikelen om pagina's te vullen.
+- Contact-e-mail is `info@solutionxl.nl`.
+
+### Paginastructuur (volgorde vast)
+
+1. Hero: eyebrow "Interim IT- & softwareleider", h1, lead in ik-vorm
+2. `#over`: Over mij (+ kaart "Werken moet leuk zijn")
+3. `#rollen`: vier rolkaarten
+4. `#ervaring`: tijdlijn + samenvattingskaart + cv-download
+5. `#aanpak`: werkwijze
+6. `#solutionxl`: beschikbaarheid (6–12 maanden) en contractering via SolutionXL BV
+7. `#contact` (footer)
+
+Secties wisselen af tussen `.section` en `.section.section-alt`.
 
 ---
 
@@ -23,6 +62,9 @@ Single source of truth: `src/styles/global.css`.
 | `src/layouts/Base.astro` | HTML head, fonts, JSON-LD, SEO-meta |
 | `src/pages/index.astro` | Pagina-markup (één pagina) |
 | `public/_headers` | Security headers + cache rules voor Cloudflare |
+| `public/_redirects` | 301's (o.a. `/sitemap.xml` → `/sitemap-index.xml`) |
+| `src/pages/404.astro` | 404-pagina (`noindex`); niet verwijderen |
+| `src/lib/hero.ts` | Hero-foto: zelf gehost als `src/assets/hero.jpg` bestaat, anders Unsplash-fallback |
 | `public/assets/` | SVG-visuals en CV-PDF |
 | `astro.config.mjs` | Astro config met `inlineStylesheets: 'auto'` |
 
@@ -123,8 +165,9 @@ Alleen onderstaande bestaan. Nieuwe component? Eerst voorstellen.
 
 ### Navigatie
 - `.site-header` — sticky, blurred (`backdrop-filter: blur(12px)`), semi-transparante achtergrond
-- `.brand` — Cormorant 600, 2rem — wordmark
-- `.nav a` — Inter 500, color `--muted`
+- `.brand` — Cormorant 600, 2rem — wordmark, tekst **"Henk van der Weele"**
+- `.nav a` — Inter 500, color `--muted`. Items: Over mij · Rollen · Ervaring & cv · Aanpak · Contact
+- Op ≤ 640px is de header `position: static` en hebben nav-links `padding: .55rem 0` (44px tap target)
 
 ### Hero
 - `.hero` + `.hero-layout` (stack) of `.hero-details` (2-koloms grid, `1.15fr 0.85fr`)
@@ -139,8 +182,8 @@ Alleen onderstaande bestaan. Nieuwe component? Eerst voorstellen.
 - `.card` — basis: padding 1.5rem, radius 24px, soft shadow, 88% witte achtergrond
 - `.card.service-card` — binnen `.cards-4` grid
 - `.card.feature-card` — grotere feature tile
-- `.card.profile-card` — CV/profiel samenvatting
-- `.card.contact-card` — footer contactblok
+- `.card.profile-card` — samenvatting (Rol, Focus, Domeinen, Beschikbaar, Contractering) + cv-download
+- `.card.contact-card` — footer contactblok: Henk eerst; daaronder `.contact-company` (SolutionXL B.V., adres, KvK) gescheiden door een `--line`
 - `.card-visual.premium-visual` — visuele kaart met gradient achtergrond
 
 ### Buttons
@@ -151,6 +194,12 @@ Alleen onderstaande bestaan. Nieuwe component? Eerst voorstellen.
 ### Lijsten en chips
 - `.check-list`, `.steps` — ul/ol met consistente spacing
 - `.tag-row span`, `.pill-row span` — pill met accent-tint achtergrond
+
+### Tijdlijn (toegevoegd 18-11-2026)
+- `ol.timeline` in `#ervaring`; data uit de `experience`-array (zie §0)
+- Per item: `.timeline-when` (Inter 700, 0.85rem, `--accent-text`) · `h3.timeline-org` (Cormorant, 1.3rem) · `p.timeline-role` (`--muted`)
+- Grid `7.5rem 1fr` met `--line` tussen items; onder 640px één kolom
+- Geen iconen, bolletjes of verticale lijnen toevoegen
 
 ### Grids
 - `.cards-4` — 4-koloms op desktop, 1-koloms onder 980px
@@ -198,7 +247,11 @@ Test altijd op drie viewport-breedtes:
 Verplichte checks per build:
 - Hero-kop breekt niet raar bij viewport-overgang (`text-wrap: balance` moet werken)
 - `.cards-4` wordt 1-koloms onder 980px
-- Nav collapst correct onder 640px (`flex-direction: column`)
+- Nav collapst correct onder 640px (`flex-direction: column`), header niet sticky, tap targets ≥ 44px
+- Elke menu-ankerlink: sectie-eyebrow zichtbaar onder de header (desktop)
+- `.one-line-heading` en `.profile-name-heading` lopen niet uit hun container (check 981–1180px)
+- Contrast kleine tekst ≥ 4,5:1
+- Geen requests naar `fonts.googleapis.com` / `fonts.gstatic.com`
 - Buttons zijn full-width onder 640px
 - Geen horizontal scroll op mobiel
 - Fonts geladen (geen FOUT: Flash Of Unstyled Text)
@@ -210,7 +263,8 @@ Screenshots opslaan in `/screenshots/` (toevoegen aan `.gitignore` indien nog ni
 
 ## 6. SEO en structured data
 
-- JSON-LD staat in `Base.astro` — twee graphs: `Person` + `ProfessionalService`
+- JSON-LD staat in `Base.astro`: `ProfilePage` → `mainEntity` = `Person` (`https://www.weele.nl/#henk`), plus `WebSite`.
+- **SolutionXL BV wordt alleen gerefereerd** via `worksFor: { '@id': 'https://www.solutionxl.nl/#organization' }`: hetzelfde `@id` dat solutionxl.nl gebruikt. Zo zien zoekmachines één persoon en één bedrijf. Nooit een tweede `ProfessionalService` met `url: weele.nl` aanmaken.
 - Nooit verwijderen of inkorten
 - Bij wijziging: valideer met [Google Rich Results Test](https://search.google.com/test/rich-results)
 - Canonical URL hardcoded op `https://www.weele.nl/`
@@ -218,9 +272,21 @@ Screenshots opslaan in `/screenshots/` (toevoegen aan `.gitignore` indien nog ni
 
 ---
 
-## 7. Deploy checklist
+## 7. Deploy-governance
 
-Voor elke PR naar `main`:
+**Productie = branch `main`.** Cloudflare Pages deployt elke push naar `main` direct live. Daarom:
+
+1. **Nooit rechtstreeks naar `main` pushen.** Altijd een feature branch (`fix/…`, `feat/…`, `content/…`).
+2. Pull request naar `main`. Cloudflare bouwt automatisch een preview: `<branch>.weele-nl.pages.dev`.
+3. Checks hieronder groen, preview bekeken.
+4. **Merge alleen door Henk** (of met zijn expliciete akkoord in de PR). AI-tools mogen branches en PR's maken, niet zelf mergen.
+5. Na merge: live site controleren (homepage, `/sitemap-index.xml`, een onbekende URL → 404).
+
+Een geslaagde GitHub-commit bewijst niet dat de site live staat: controleer de Cloudflare deploy-log en de pagina zelf.
+
+**Buiten scope zonder expliciete toestemming:** DNS (STRATO), nameservers, MX/SPF/DKIM/DMARC, de Cloudflare-adapter (`output` blijft `static`), bestanden verwijderen.
+
+### Checklist per PR
 
 1. `npm run build` lokaal succesvol
 2. `npm run preview` visueel gecontroleerd op desktop + mobiel
