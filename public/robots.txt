@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.weele.nl/sitemap.xml
+Sitemap: https://www.weele.nl/sitemap-index.xml
