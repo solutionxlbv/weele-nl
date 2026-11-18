@@ -1,16 +1,34 @@
 ---
+import { Picture } from 'astro:assets';
 import Base from '../layouts/Base.astro';
+import { heroImage, HERO_FALLBACK_URL, HERO_ALT } from '../lib/hero';
+
+// Same years and roles as the timeline on solutionxl.nl (src/components/Bewijs.astro)
+// and the cv. Keep these three in sync.
+const experience = [
+  { when: '2026 — heden', org: 'Sportlink', role: 'Product- & Implementatie Manager AFAS SB a.i.' },
+  { when: '2025 — 2026', org: 'Ministerie van Defensie', role: 'Voorzitter Regiegroep GrIT — Planning & Resourcing' },
+  { when: '2023 — 2024', org: 'Rainforest Alliance', role: 'Director of Development & Operations a.i.' },
+  { when: '2022 — 2023', org: 'Moves — PON Automotive', role: 'Product Owner a.i.' },
+  { when: '2022', org: 'Vattenfall', role: 'Product Owner a.i. — One Sales Interface' },
+  { when: '2021 — 2022', org: 'Avero / Achmea', role: 'Product Owner a.i. — Podium / AGRO' },
+  { when: '2020 — 2021', org: 'Transavia', role: 'Product Owner / Business Analist a.i. — Manpower Planning & Scheduling' },
+  { when: '2019 — 2020', org: 'LeasePlan Digital', role: 'Business Analist a.i. Cybersecurity · Product Owner a.i. Fleet Operations' },
+  { when: '2018 — 2019', org: 'ABN AMRO', role: 'Product Owner · Agile Coach — CB Digital Process Delivery' },
+  { when: '2009 — 2018', org: 'International Card Services (ICS)', role: 'Product Owner · Digital Informatie Analist · Software-ontwikkelaar' },
+  { when: '1983 — 2009', org: 'LANSA en eigen bedrijf', role: 'Ontwikkelaar, consultant en business partner manager' },
+];
 ---
 
 <Base>
   <header class="site-header">
     <div class="container nav-wrap">
-      <a class="brand" href="#top">SolutionXL BV</a>
-      <nav class="nav">
-        <a href="#over">Over</a>
-        <a href="#diensten">Diensten</a>
+      <a class="brand" href="#top">Henk van der Weele</a>
+      <nav class="nav" aria-label="Hoofdnavigatie">
+        <a href="#over">Over mij</a>
+        <a href="#rollen">Rollen</a>
+        <a href="#ervaring">Ervaring & cv</a>
         <a href="#aanpak">Aanpak</a>
-        <a href="#profiel">Profiel & CV</a>
         <a href="#contact">Contact</a>
       </nav>
     </div>
@@ -19,20 +37,19 @@ import Base from '../layouts/Base.astro';
   <main id="top">
     <section class="hero">
       <div class="container hero-layout">
-        <p class="eyebrow">Onafhankelijke consultancy</p>
+        <p class="eyebrow">Interim IT- & softwareleider</p>
         <h1>Interim IT-leadership voor software, product en delivery</h1>
         <div class="hero-details">
           <div class="hero-copy">
             <p class="lead">
-              Henk van der Weele helpt organisaties met interim leiderschap van softwareteams,
-              productontwikkeling en betrouwbare software delivery. Als onafhankelijk consultant via
-              SolutionXL BV brengt hij richting, samenwerking en resultaat in complexe
-              IT-omgevingen, met ervaring in banking, verzekeringen, luchtvaart, energie, mobiliteit
-              en de publieke sector.
+              Ik help organisaties met interim leiderschap van softwareteams, productontwikkeling en
+              betrouwbare software delivery. Met ruim veertig jaar IT-ervaring in banking,
+              verzekeringen, luchtvaart, energie, mobiliteit en de publieke sector breng ik richting,
+              samenwerking en resultaat in complexe IT-omgevingen.
             </p>
             <div class="cta-row">
               <a class="btn btn-primary" href="#contact">Plan een kennismaking</a>
-              <a class="btn btn-secondary" href="#profiel">Bekijk directeur & CV</a>
+              <a class="btn btn-secondary" href="#ervaring">Bekijk ervaring & cv</a>
             </div>
             <ul class="check-list">
               <li>Interim Head of Engineering en Engineering Manager</li>
@@ -42,10 +59,19 @@ import Base from '../layouts/Base.astro';
             </ul>
           </div>
           <div class="hero-art card-visual premium-visual">
-            <img
-              src="https://images.unsplash.com/photo-1696694162142-a6ebdb9c016b?auto=format&fit=crop&fm=jpg&q=80&w=2000"
-              alt="Zwart-wit architectuurfoto van een glazen gebouw in premium zakelijke stijl"
-            />
+            {heroImage ? (
+              <Picture
+                src={heroImage}
+                alt={HERO_ALT}
+                formats={['avif', 'webp']}
+                widths={[480, 800, 1200, 1600]}
+                sizes="(max-width: 980px) calc(100vw - 2rem), 470px"
+                loading="eager"
+                fetchpriority="high"
+              />
+            ) : (
+              <img src={HERO_FALLBACK_URL} alt={HERO_ALT} width="2000" height="1333" fetchpriority="high" />
+            )}
           </div>
         </div>
       </div>
@@ -54,128 +80,96 @@ import Base from '../layouts/Base.astro';
     <section class="section section-alt" id="over">
       <div class="container two-col">
         <div>
-          <p class="eyebrow">Over SolutionXL</p>
-          <h2>Onafhankelijke consultancy met scherpte, rust en bestuurlijke kracht</h2>
+          <p class="eyebrow">Over mij</p>
+          <h2>Rust, overzicht en richting waar complexiteit vertraagt</h2>
           <p>
-            SolutionXL BV is de onafhankelijke consultancypraktijk van Henk van der Weele. Vanuit
-            deze praktijk ondersteunt hij organisaties die behoefte hebben aan ervaren tijdelijke
-            versterking in omgevingen waar belangen groot zijn en afhankelijkheden complex. Met
-            overzicht, bestuurlijke sensitiviteit en resultaatgericht handelen brengt SolutionXL
-            richting, voortgang en bestuurbaarheid.
+            Ik werk als onafhankelijk interim IT- en softwareleider. Ik help organisaties bij het
+            bouwen en verbeteren van engineering teams, het aansturen van softwareontwikkeling, het
+            versterken van productmanagement en het realiseren van IT-verandering.
           </p>
           <p>
-            De inzet is steeds gericht op tastbaar effect: betere regie, scherpere prioriteiten,
-            heldere besluitvorming en meer grip op realisatie.
+            Mijn ervaring heb ik opgebouwd in omgevingen waar continuïteit, betrouwbaarheid en
+            bestuurbaarheid direct impact hebben. Ik beweeg me gemakkelijk tussen strategie en
+            uitvoering, bestuur en operatie, mens en resultaat. Mijn stijl is helder, betrokken en
+            koersvast.
           </p>
         </div>
         <div class="card feature-card premium-visual">
-          <img src="/assets/focus-visual.svg" alt="Abstract zwart-wit beeld van focus, ritme en structuur" />
-          <h3>Exclusieve eenvoud</h3>
+          <img
+            src="/assets/focus-visual.svg"
+            alt="Abstract zwart-wit beeld van focus, ritme en structuur"
+            width="900"
+            height="700"
+            loading="lazy"
+            decoding="async"
+          />
+          <h3>“Werken moet leuk zijn”</h3>
           <p>
-            Een heldere aanpak, zonder overdaad. Gericht op waar ervaring en precisie direct waarde
-            toevoegen.
+            Ik geloof dat samenwerking en eigenaarschap tot het beste resultaat leiden. Iedereen is
+            verantwoordelijk voor het eigen werk, en ik neem mijn verantwoordelijkheid als het erop
+            aankomt.
           </p>
         </div>
       </div>
     </section>
 
-    <section class="section" id="diensten">
+    <section class="section" id="rollen">
       <div class="container">
-        <p class="eyebrow">Diensten</p>
-        <h2 class="wide-section-heading">Interim leiderschap voor teams, product en realisatie</h2>
+        <p class="eyebrow">Rollen</p>
+        <h2 class="wide-section-heading">Interim rollen voor teams, product en realisatie</h2>
         <div class="cards-4">
           <article class="card service-card">
             <h3>Engineering leadership</h3>
             <p>
-              Interim Head of Engineering, Engineering Manager of Director of Development. Teams
-              versterken, focus aanbrengen en eigenaarschap organiseren.
+              Als interim Head of Engineering, Engineering Manager of Director of Development
+              versterk ik teams, breng ik focus aan en organiseer ik eigenaarschap.
             </p>
           </article>
           <article class="card service-card">
             <h3>Software delivery</h3>
             <p>
-              Sturing op softwareontwikkeling, releases, kwaliteit en samenwerking tussen teams en
+              Ik stuur op softwareontwikkeling, releases, kwaliteit en samenwerking tussen teams en
               stakeholders, van prioriteit tot oplevering.
             </p>
           </article>
           <article class="card service-card">
             <h3>IT- en teamtransformatie</h3>
             <p>
-              Organisaties helpen bij verandering van werkwijze, teamstructuur en
-              delivery-capaciteit, met aandacht voor mensen én resultaten.
+              Ik begeleid verandering van werkwijze, teamstructuur en delivery-capaciteit, met
+              aandacht voor mensen én resultaten.
             </p>
           </article>
           <article class="card service-card">
             <h3>Product leadership</h3>
             <p>
-              Senior Product Lead of Product Owner voor duidelijke productkeuzes, een uitvoerbare
-              roadmap en betere samenwerking tussen business en development.
+              Als Senior Product Lead of Product Owner zorg ik voor duidelijke productkeuzes, een
+              uitvoerbare roadmap en betere samenwerking tussen business en development.
             </p>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section section-alt" id="aanpak">
-      <div class="container two-col reverse">
-        <div class="card-visual premium-visual">
-          <img
-            src="/assets/process-visual.svg"
-            alt="Abstracte, minimalistische visualisatie van een gestructureerde aanpak"
-          />
-        </div>
-        <div>
-          <p class="eyebrow">Aanpak</p>
-          <h2>Koersvast, precies en gericht op executie</h2>
-          <p>
-            SolutionXL combineert strategisch inzicht met praktische uitvoerbaarheid. Geen
-            standaardmodellen, maar gerichte inzet op context, structuur, besluitvorming en
-            realisatie. De werkwijze is rustig en scherp tegelijk: eerst ordenen, dan richten,
-            vervolgens leveren.
-          </p>
-          <ol class="steps">
-            <li>Context, risico's en afhankelijkheden scherp krijgen</li>
-            <li>Bestuurbare structuur en prioriteiten aanbrengen</li>
-            <li>Regie, afstemming en besluitvorming organiseren</li>
-            <li>Sturen op levering, voortgang en overdracht</li>
-          </ol>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="profiel">
+    <section class="section section-alt" id="ervaring">
       <div class="container profile-grid">
         <div>
-          <p class="eyebrow">Profiel & CV</p>
+          <p class="eyebrow">Ervaring & cv</p>
           <h2 class="profile-name-heading">Henk van der Weele</h2>
           <p class="lead-small">
-            Senior interim IT- en softwareleider en directeur van SolutionXL BV. Inzetbaar voor
-            engineering management, software delivery en product leadership.
+            Senior interim IT- en softwareleider. Inzetbaar voor engineering management, software
+            delivery en product leadership.
           </p>
-          <p>
-            Henk van der Weele is directeur van SolutionXL BV en werkt als onafhankelijk interim IT-
-            en softwareleider. Hij ondersteunt organisaties bij het bouwen en verbeteren van
-            engineering teams, het aansturen van softwareontwikkeling, het versterken van
-            productmanagement en het realiseren van IT-verandering.
-          </p>
-          <p>
-            Zijn ervaring is opgebouwd in sectoren waar continuïteit, betrouwbaarheid en
-            bestuurbaarheid direct impact hebben, waaronder banking, verzekeringen, luchtvaart,
-            energie, mobiliteit, non-profit en de publieke sector. Daarbij werkte hij onder meer
-            voor organisaties als ABN AMRO, International Card Services, Transavia, Vattenfall,
-            Achmea, Moves/PON Automotive, Rainforest Alliance en het Ministerie van Defensie.
-          </p>
-          <p>
-            Met ruime ervaring in zowel corporate als publieke omgevingen beweegt Henk zich
-            gemakkelijk tussen strategie en uitvoering, bestuur en operatie, mens en resultaat. Zijn
-            stijl is helder, betrokken en koersvast: hij brengt rust, overzicht en richting waar
-            complexiteit dreigt te vertragen.
-          </p>
-          <p>
-            SolutionXL staat voor kwaliteit, aandacht en senioriteit. Geen traditioneel
-            adviesbureau, maar onafhankelijke consultancy met gerichte inzet op plekken waar
-            ervaring, bestuurlijke sensitiviteit en executiekracht direct waarde toevoegen.
-          </p>
+          <ol class="timeline">
+            {experience.map((item) => (
+              <li>
+                <span class="timeline-when">{item.when}</span>
+                <div>
+                  <h3 class="timeline-org">{item.org}</h3>
+                  <p class="timeline-role">{item.role}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
           <div class="tag-row">
             <span>Engineering Management</span>
             <span>Software Delivery</span>
@@ -187,34 +181,69 @@ import Base from '../layouts/Base.astro';
         <aside class="card profile-card">
           <h3>Snelle samenvatting</h3>
           <dl class="profile-list">
-            <div><dt>Rol</dt><dd>Directeur SolutionXL</dd></div>
-            <div><dt>Positionering</dt><dd>Onafhankelijke consultancy</dd></div>
+            <div><dt>Rol</dt><dd>Interim IT- & softwareleider</dd></div>
             <div><dt>Focus</dt><dd>Engineering management, software delivery en product leadership</dd></div>
             <div><dt>Domeinen</dt><dd>Banking, energie, luchtvaart, mobiliteit, verzekeringen en publieke sector</dd></div>
+            <div><dt>Beschikbaar</dt><dd>Interim opdrachten van 6 tot 12 maanden</dd></div>
+            <div><dt>Contractering</dt><dd>Via SolutionXL BV</dd></div>
           </dl>
-          <a class="btn btn-primary profile-download" href="/assets/henk-van-der-weele-cv.pdf" download>
+          <a class="btn btn-primary profile-download" href="/assets/henk-van-der-weele-cv.pdf?v=2026-11" download>
             Download cv
           </a>
         </aside>
       </div>
     </section>
 
-    <section class="section section-alt" id="inzetvormen">
+    <section class="section" id="aanpak">
+      <div class="container two-col reverse">
+        <div class="card-visual premium-visual">
+          <img
+            src="/assets/process-visual.svg"
+            alt="Abstracte, minimalistische visualisatie van een gestructureerde aanpak"
+            width="1000"
+            height="760"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <div>
+          <p class="eyebrow">Aanpak</p>
+          <h2>Koersvast, precies en gericht op executie</h2>
+          <p>
+            Ik combineer strategisch inzicht met praktische uitvoerbaarheid. Geen standaardmodellen,
+            maar gerichte inzet op context, structuur, besluitvorming en realisatie. Mijn werkwijze is
+            rustig en scherp tegelijk: eerst ordenen, dan richten, vervolgens leveren.
+          </p>
+          <ol class="steps">
+            <li>Context, risico's en afhankelijkheden scherp krijgen</li>
+            <li>Bestuurbare structuur en prioriteiten aanbrengen</li>
+            <li>Regie, afstemming en besluitvorming organiseren</li>
+            <li>Sturen op levering, voortgang en overdracht</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="solutionxl">
       <div class="container">
-        <p class="eyebrow">Inzetvormen</p>
+        <p class="eyebrow">Inzet via SolutionXL BV</p>
         <h2 class="wide-section-heading one-line-heading">
-          Senior inzet, directe meerwaarde, heldere positionering
+          Interim inzet, gecontracteerd via mijn eigen bv
         </h2>
         <p class="max-text">
-          SolutionXL is inzetbaar voor gerichte interventies, tijdelijke senior rollen en
-          langduriger trajecten waarin continuïteit, bestuurbaarheid en resultaat centraal staan.
-          Altijd als onafhankelijke consultant met directe inzetbaarheid en senior executiekracht.
+          Ik ben beschikbaar voor interim opdrachten van zes tot twaalf maanden: als sleutelrol in een
+          programma, als tijdelijk leidinggevende of voor een gerichte interventie. Opdrachten
+          contracteer ik via mijn eigen bv, SolutionXL BV. Op solutionxl.nl vindt u de diensten en
+          cases van SolutionXL.
         </p>
         <div class="pill-row">
-          <span>Gerichte interventies</span>
           <span>Interim sleutelrollen</span>
+          <span>Gerichte interventies</span>
           <span>Programma- en ketenomgevingen</span>
-          <span>Bestuurlijke en operationele sturing</span>
+          <span>6–12 maanden</span>
+        </div>
+        <div class="cta-row">
+          <a class="btn btn-secondary" href="https://www.solutionxl.nl/">Naar solutionxl.nl</a>
         </div>
       </div>
     </section>
@@ -224,18 +253,15 @@ import Base from '../layouts/Base.astro';
     <div class="container footer-grid">
       <div>
         <p class="eyebrow">Contact</p>
-        <h2 class="contact-heading">
-          Kennismaken met <span class="contact-name">Henk van der Weele?</span>
-        </h2>
+        <h2 class="contact-heading">Laten we kennismaken</h2>
         <p>
           Zoekt u een ervaren interim IT-leider, Engineering Manager, Software Delivery Lead of
-          Product Lead? Neem contact op voor een eerste gesprek over uw organisatie en opdracht.
+          Product Lead? Neem contact met mij op voor een eerste gesprek over uw organisatie en
+          opdracht.
         </p>
       </div>
       <div class="card contact-card">
-        <p><strong>SolutionXL B.V.</strong></p>
-        <p>Burgemeester Bickerstraat 43<br />1111 CA Diemen</p>
-        <p>KvK: 72779705</p>
+        <p><strong>Henk van der Weele</strong></p>
         <p><a href="tel:+31646741921">06-4674 1921</a></p>
         <p><a href="mailto:info@solutionxl.nl">info@solutionxl.nl</a></p>
         <p>
@@ -243,10 +269,14 @@ import Base from '../layouts/Base.astro';
             LinkedIn profiel
           </a>
         </p>
+        <p class="contact-company">
+          <a href="https://www.solutionxl.nl/">SolutionXL B.V.</a><br />
+          Burgemeester Bickerstraat 43<br />1111 CA Diemen<br />KvK: 72779705
+        </p>
       </div>
     </div>
     <div class="container footer-bottom">
-      <p>© SolutionXL BV</p>
+      <p>© Henk van der Weele · SolutionXL BV</p>
     </div>
   </footer>
 </Base>

@@ -8,6 +8,7 @@
   --primary: #1f1f1f;
   --primary-dark: #000000;
   --accent: #b69a6a;
+  --accent-text: #7a6239; /* accent as small text: WCAG AA (>= 4.5:1) on all backgrounds */
   --shadow: 0 22px 60px rgba(17, 17, 17, 0.08);
   --radius: 24px;
   --maxw: 1180px;
@@ -25,7 +26,9 @@ body {
 }
 a { color: var(--primary); text-decoration: none; }
 a:hover { text-decoration: underline; }
-img { max-width: 100%; display: block; }
+img { max-width: 100%; height: auto; display: block; }
+/* Anchor jumps land below the sticky header instead of under it. */
+[id] { scroll-margin-top: 5.5rem; }
 .container { width: min(var(--maxw), calc(100% - 2rem)); margin: 0 auto; }
 .site-header {
   position: sticky; top: 0; z-index: 100;
@@ -68,7 +71,7 @@ img { max-width: 100%; display: block; }
 .footer-grid { grid-template-columns: 1.1fr 0.9fr; }
 .eyebrow {
   margin: 0 0 .75rem;
-  color: var(--accent);
+  color: var(--accent-text);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: .14em;
@@ -77,6 +80,8 @@ img { max-width: 100%; display: block; }
 h1, h2, h3 { font-family: 'Cormorant Garamond', Georgia, serif; margin: 0 0 1rem; line-height: 1.02; letter-spacing: -0.02em; font-weight: 600; }
 h1 { font-size: clamp(2.5rem, 6vw, 4.8rem); max-width: 11ch; }
 h2 { font-size: clamp(1.9rem, 4vw, 3rem); max-width: 15ch; }
+/* In two-column sections the 15ch measure gave 3-4 line headings; use the column instead. */
+.two-col h2 { max-width: 22ch; }
 h3 { font-size: 1.45rem; }
 /* Editorial headings use the available content width rather than a narrow 15ch measure. */
 .wide-section-heading { max-width: 100%; }
@@ -173,6 +178,16 @@ p { margin: 0 0 1rem; }
 .profile-list div:last-child { border-bottom: 0; }
 .profile-list dt { font-weight: 700; }
 .profile-list dd { margin: 0; color: var(--muted); }
+/* Experience timeline (#ervaring): same years/roles as solutionxl.nl and the cv. */
+.timeline { list-style: none; margin: 1.5rem 0 1.75rem; padding: 0; border-top: 1px solid var(--line); }
+.timeline li {
+  display: grid; grid-template-columns: 7.5rem 1fr; gap: .25rem 1.25rem;
+  padding: .85rem 0; border-bottom: 1px solid var(--line);
+}
+.timeline-when { color: var(--accent-text); font-weight: 700; font-size: .85rem; letter-spacing: .04em; padding-top: .3rem; }
+.timeline-org { font-size: 1.3rem; line-height: 1.2; margin: 0 0 .15rem; letter-spacing: 0; }
+.timeline-role { margin: 0; color: var(--muted); font-size: .97rem; line-height: 1.5; }
+.contact-company { margin: 1rem 0 0; padding-top: 1rem; border-top: 1px solid var(--line); color: var(--muted); }
 .site-footer { padding: 3rem 0 1rem; }
 .contact-card { justify-self: end; width: min(100%, 420px); }
 .footer-bottom { padding-top: 1.25rem; color: var(--muted); font-size: .95rem; }
@@ -187,13 +202,19 @@ p { margin: 0 0 1rem; }
 }
 
 @media (max-width: 640px) {
-  .nav-wrap { align-items: flex-start; flex-direction: column; }
-  .nav { gap: .8rem 1rem; }
+  /* On phones the wrapped nav made the sticky header 147px (17% of the screen). */
+  .site-header { position: static; }
+  [id] { scroll-margin-top: 1rem; }
+  .nav-wrap { align-items: flex-start; flex-direction: column; gap: .4rem; }
+  .nav { gap: 0 1.1rem; }
+  .nav a { display: inline-block; padding: .55rem 0; } /* tap targets >= 44px */
   .hero { padding-top: 3.4rem; }
   .hero-layout > h1 { font-size: clamp(2.75rem, 9vw, 3.65rem); }
   .profile-name-heading { white-space: normal; }
   .btn { width: 100%; }
   .profile-list div { grid-template-columns: 1fr; gap: .15rem; }
+  .timeline li { grid-template-columns: 1fr; gap: .1rem; }
+  .timeline-when { padding-top: 0; }
 }
 
 .hero-copy .lead, .lead-small { max-width: 58ch; }

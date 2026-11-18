@@ -1,58 +1,93 @@
 ---
+// Fonts are self-hosted (no requests to Google, no visitor IPs leaving the site).
+// Only the weights that the CSS actually uses are imported.
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
+import '@fontsource/cormorant-garamond/500.css';
+import '@fontsource/cormorant-garamond/600.css';
 import '../styles/global.css';
+import { getImage } from 'astro:assets';
+import { heroImage, HERO_FALLBACK_URL } from '../lib/hero';
 
 export interface Props {
   title?: string;
   description?: string;
-  canonical?: string;
+  canonical?: string | null;
   ogImage?: string;
   noindex?: boolean;
 }
+
+// Social preview: a self-hosted 1200px JPEG when the hero photo is in the repo,
+// otherwise the external Unsplash URL (previous behaviour).
+const defaultOgImage = heroImage
+  ? new URL(
+      (await getImage({ src: heroImage, width: 1200, format: 'jpg', quality: 80 })).src,
+      Astro.site,
+    ).href
+  : HERO_FALLBACK_URL;
 
 const {
   title = 'Henk van der Weele | Interim IT & Software Leadership',
   description = 'Henk van der Weele: onafhankelijk interim IT- en softwareleider voor engineering teams, productontwikkeling en software delivery. Ervaring in banking, luchtvaart, energie en publieke sector.',
   canonical = 'https://www.weele.nl/',
-  ogImage = 'https://images.unsplash.com/photo-1696694162142-a6ebdb9c016b?auto=format&fit=crop&fm=jpg&q=80&w=2000',
+  ogImage = defaultOgImage,
   noindex = false,
 } = Astro.props;
 
+// weele.nl is Henk's personal page: the Person is the main entity.
+// SolutionXL BV is referenced by the same @id that solutionxl.nl uses, so search
+// engines treat both sites as one person + one company instead of two competitors.
 const structuredData = {
   '@context': 'https://schema.org',
   '@graph': [
+    {
+      '@type': 'ProfilePage',
+      '@id': 'https://www.weele.nl/#profilepage',
+      url: 'https://www.weele.nl/',
+      name: 'Henk van der Weele | Interim IT & Software Leadership',
+      inLanguage: 'nl-NL',
+      isPartOf: { '@id': 'https://www.weele.nl/#website' },
+      mainEntity: { '@id': 'https://www.weele.nl/#henk' },
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://www.weele.nl/#website',
+      url: 'https://www.weele.nl/',
+      name: 'Henk van der Weele',
+      inLanguage: 'nl-NL',
+      publisher: { '@id': 'https://www.weele.nl/#henk' },
+    },
     {
       '@type': 'Person',
       '@id': 'https://www.weele.nl/#henk',
       name: 'Henk van der Weele',
       url: 'https://www.weele.nl/',
-      jobTitle: 'Interim IT & Software Leader',
+      jobTitle: 'Interim IT- & softwareleider',
       description:
-        'Onafhankelijk interim consultant voor engineering leadership, productontwikkeling en software delivery.',
+        'Onafhankelijk interim IT- en softwareleider voor engineering leadership, productontwikkeling en software delivery.',
+      telephone: '+31646741921',
+      email: 'info@solutionxl.nl',
       sameAs: ['https://www.linkedin.com/in/weele/'],
+      knowsLanguage: ['nl', 'en'],
+      alumniOf: { '@type': 'EducationalOrganization', name: 'HEAO BI Amsterdam' },
       knowsAbout: [
-        'Software engineering leadership',
         'Engineering management',
         'Software delivery',
-        'Product development',
-        'IT transformation',
-        'Banking',
-        'Luchtvaart',
-        'Energie',
-        'Publieke sector',
+        'Product leadership',
+        'IT-transformatie',
+        'Interim management',
+        'Release management',
       ],
-      worksFor: { '@id': 'https://www.weele.nl/#business' },
+      worksFor: { '@id': 'https://www.solutionxl.nl/#organization' },
     },
     {
       '@type': 'ProfessionalService',
-      '@id': 'https://www.weele.nl/#business',
+      '@id': 'https://www.solutionxl.nl/#organization',
       name: 'SolutionXL BV',
-      url: 'https://www.weele.nl/',
-      description:
-        'Onafhankelijke consultancy en tijdelijke versterking voor IT, software engineering, productontwikkeling en software delivery.',
+      url: 'https://www.solutionxl.nl/',
       founder: { '@id': 'https://www.weele.nl/#henk' },
-      areaServed: { '@type': 'Country', name: 'Nederland' },
-      telephone: '+31-6-46741921',
-      email: 'info@solutionxl.nl',
     },
   ],
 };
@@ -68,21 +103,26 @@ const structuredData = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="author" content="Henk van der Weele" />
-    <link rel="canonical" href={canonical} />
+    {canonical && <link rel="canonical" href={canonical} />}
     <meta
       name="robots"
       content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'}
     />
 
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#fbfaf8" />
+
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="nl_NL" />
-    <meta property="og:site_name" content="Henk van der Weele | SolutionXL BV" />
+    <meta property="og:site_name" content="Henk van der Weele" />
     <meta property="og:title" content={title} />
     <meta
       property="og:description"
-      content="Onafhankelijke interim consultancy voor engineering leadership, productontwikkeling en software delivery in complexe organisaties."
+      content="Interim IT- en softwareleider voor engineering leadership, productontwikkeling en software delivery in complexe organisaties."
     />
-    <meta property="og:url" content={canonical} />
+    {canonical && <meta property="og:url" content={canonical} />}
     <meta property="og:image" content={ogImage} />
 
     <meta name="twitter:card" content="summary_large_image" />
@@ -92,13 +132,6 @@ const structuredData = {
       content="Interim IT-leadership, engineering management, productontwikkeling en software delivery. Onafhankelijk via SolutionXL BV."
     />
     <meta name="twitter:image" content={ogImage} />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
 
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   </head>

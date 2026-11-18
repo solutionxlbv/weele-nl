@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Pagina niet gevonden | Henk van der Weele"
+  description="Deze pagina bestaat niet (meer)."
+  canonical={null}
+  noindex
+>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="/">Henk van der Weele</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-layout">
+        <p class="eyebrow">404</p>
+        <h1>Deze pagina bestaat niet</h1>
+        <div class="hero-copy">
+          <p class="lead">
+            De link is mogelijk verouderd of verkeerd overgenomen. Op de homepage vindt u mijn
+            profiel, ervaring en contactgegevens.
+          </p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="/">Naar de homepage</a>
+            <a class="btn btn-secondary" href="/#contact">Contact</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Base>
