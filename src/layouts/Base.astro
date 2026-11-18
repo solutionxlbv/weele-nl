@@ -1,19 +1,38 @@
 ---
+// Fonts are self-hosted (no requests to Google, no visitor IPs leaving the site).
+// Only the weights that the CSS actually uses are imported.
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
+import '@fontsource/cormorant-garamond/500.css';
+import '@fontsource/cormorant-garamond/600.css';
 import '../styles/global.css';
+import { getImage } from 'astro:assets';
+import { heroImage, HERO_FALLBACK_URL } from '../lib/hero';
 
 export interface Props {
   title?: string;
   description?: string;
-  canonical?: string;
+  canonical?: string | null;
   ogImage?: string;
   noindex?: boolean;
 }
+
+// Social preview: a self-hosted 1200px JPEG when the hero photo is in the repo,
+// otherwise the external Unsplash URL (previous behaviour).
+const defaultOgImage = heroImage
+  ? new URL(
+      (await getImage({ src: heroImage, width: 1200, format: 'jpg', quality: 80 })).src,
+      Astro.site,
+    ).href
+  : HERO_FALLBACK_URL;
 
 const {
   title = 'Henk van der Weele | Interim IT & Software Leadership',
   description = 'Henk van der Weele: onafhankelijk interim IT- en softwareleider voor engineering teams, productontwikkeling en software delivery. Ervaring in banking, luchtvaart, energie en publieke sector.',
   canonical = 'https://www.weele.nl/',
-  ogImage = 'https://images.unsplash.com/photo-1696694162142-a6ebdb9c016b?auto=format&fit=crop&fm=jpg&q=80&w=2000',
+  ogImage = defaultOgImage,
   noindex = false,
 } = Astro.props;
 
@@ -68,11 +87,16 @@ const structuredData = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="author" content="Henk van der Weele" />
-    <link rel="canonical" href={canonical} />
+    {canonical && <link rel="canonical" href={canonical} />}
     <meta
       name="robots"
       content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'}
     />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#fbfaf8" />
 
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="nl_NL" />
@@ -82,7 +106,7 @@ const structuredData = {
       property="og:description"
       content="Onafhankelijke interim consultancy voor engineering leadership, productontwikkeling en software delivery in complexe organisaties."
     />
-    <meta property="og:url" content={canonical} />
+    {canonical && <meta property="og:url" content={canonical} />}
     <meta property="og:image" content={ogImage} />
 
     <meta name="twitter:card" content="summary_large_image" />
@@ -92,13 +116,6 @@ const structuredData = {
       content="Interim IT-leadership, engineering management, productontwikkeling en software delivery. Onafhankelijk via SolutionXL BV."
     />
     <meta name="twitter:image" content={ogImage} />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
 
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   </head>

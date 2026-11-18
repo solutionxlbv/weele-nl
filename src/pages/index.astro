@@ -1,12 +1,14 @@
 ---
+import { Picture } from 'astro:assets';
 import Base from '../layouts/Base.astro';
+import { heroImage, HERO_FALLBACK_URL, HERO_ALT } from '../lib/hero';
 ---
 
 <Base>
   <header class="site-header">
     <div class="container nav-wrap">
       <a class="brand" href="#top">SolutionXL BV</a>
-      <nav class="nav">
+      <nav class="nav" aria-label="Hoofdnavigatie">
         <a href="#over">Over</a>
         <a href="#diensten">Diensten</a>
         <a href="#aanpak">Aanpak</a>
@@ -32,7 +34,7 @@ import Base from '../layouts/Base.astro';
             </p>
             <div class="cta-row">
               <a class="btn btn-primary" href="#contact">Plan een kennismaking</a>
-              <a class="btn btn-secondary" href="#profiel">Bekijk directeur & CV</a>
+              <a class="btn btn-secondary" href="#profiel">Bekijk profiel & cv</a>
             </div>
             <ul class="check-list">
               <li>Interim Head of Engineering en Engineering Manager</li>
@@ -42,10 +44,19 @@ import Base from '../layouts/Base.astro';
             </ul>
           </div>
           <div class="hero-art card-visual premium-visual">
-            <img
-              src="https://images.unsplash.com/photo-1696694162142-a6ebdb9c016b?auto=format&fit=crop&fm=jpg&q=80&w=2000"
-              alt="Zwart-wit architectuurfoto van een glazen gebouw in premium zakelijke stijl"
-            />
+            {heroImage ? (
+              <Picture
+                src={heroImage}
+                alt={HERO_ALT}
+                formats={['avif', 'webp']}
+                widths={[480, 800, 1200, 1600]}
+                sizes="(max-width: 980px) calc(100vw - 2rem), 470px"
+                loading="eager"
+                fetchpriority="high"
+              />
+            ) : (
+              <img src={HERO_FALLBACK_URL} alt={HERO_ALT} width="2000" height="1333" fetchpriority="high" />
+            )}
           </div>
         </div>
       </div>
@@ -69,7 +80,7 @@ import Base from '../layouts/Base.astro';
           </p>
         </div>
         <div class="card feature-card premium-visual">
-          <img src="/assets/focus-visual.svg" alt="Abstract zwart-wit beeld van focus, ritme en structuur" />
+          <img src="/assets/focus-visual.svg" alt="Abstract zwart-wit beeld van focus, ritme en structuur" width="900" height="700" loading="lazy" decoding="async" />
           <h3>Exclusieve eenvoud</h3>
           <p>
             Een heldere aanpak, zonder overdaad. Gericht op waar ervaring en precisie direct waarde
@@ -122,6 +133,10 @@ import Base from '../layouts/Base.astro';
           <img
             src="/assets/process-visual.svg"
             alt="Abstracte, minimalistische visualisatie van een gestructureerde aanpak"
+            width="1000"
+            height="760"
+            loading="lazy"
+            decoding="async"
           />
         </div>
         <div>
@@ -192,7 +207,7 @@ import Base from '../layouts/Base.astro';
             <div><dt>Focus</dt><dd>Engineering management, software delivery en product leadership</dd></div>
             <div><dt>Domeinen</dt><dd>Banking, energie, luchtvaart, mobiliteit, verzekeringen en publieke sector</dd></div>
           </dl>
-          <a class="btn btn-primary profile-download" href="/assets/henk-van-der-weele-cv.pdf" download>
+          <a class="btn btn-primary profile-download" href="/assets/henk-van-der-weele-cv.pdf?v=2026-11" download>
             Download cv
           </a>
         </aside>
