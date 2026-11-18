@@ -3,21 +3,6 @@ import { Picture } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import { heroImage, HERO_FALLBACK_URL, HERO_ALT } from '../lib/hero';
 
-// Same years and roles as the timeline on solutionxl.nl (src/components/Bewijs.astro)
-// and the cv. Keep these three in sync.
-const experience = [
-  { when: '2026 — heden', org: 'Sportlink', role: 'Product- & Implementatie Manager AFAS SB a.i.' },
-  { when: '2025 — 2026', org: 'Ministerie van Defensie', role: 'Voorzitter Regiegroep GrIT — Planning & Resourcing' },
-  { when: '2023 — 2024', org: 'Rainforest Alliance', role: 'Director of Development & Operations a.i.' },
-  { when: '2022 — 2023', org: 'Moves — PON Automotive', role: 'Product Owner a.i.' },
-  { when: '2022', org: 'Vattenfall', role: 'Product Owner a.i. — One Sales Interface' },
-  { when: '2021 — 2022', org: 'Avero / Achmea', role: 'Product Owner a.i. — Podium / AGRO' },
-  { when: '2020 — 2021', org: 'Transavia', role: 'Product Owner / Business Analist a.i. — Manpower Planning & Scheduling' },
-  { when: '2019 — 2020', org: 'LeasePlan Digital', role: 'Business Analist a.i. Cybersecurity · Product Owner a.i. Fleet Operations' },
-  { when: '2018 — 2019', org: 'ABN AMRO', role: 'Product Owner · Agile Coach — CB Digital Process Delivery' },
-  { when: '2009 — 2018', org: 'International Card Services (ICS)', role: 'Product Owner · Digital Informatie Analist · Software-ontwikkelaar' },
-  { when: '1983 — 2009', org: 'LANSA en eigen bedrijf', role: 'Ontwikkelaar, consultant en business partner manager' },
-];
 ---
 
 <Base>
@@ -27,7 +12,7 @@ const experience = [
       <nav class="nav" aria-label="Hoofdnavigatie">
         <a href="#over">Over mij</a>
         <a href="#rollen">Rollen</a>
-        <a href="#ervaring">Ervaring & cv</a>
+        <a href="#profiel">Profiel & cv</a>
         <a href="#aanpak">Aanpak</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -49,7 +34,7 @@ const experience = [
             </p>
             <div class="cta-row">
               <a class="btn btn-primary" href="#contact">Plan een kennismaking</a>
-              <a class="btn btn-secondary" href="#ervaring">Bekijk ervaring & cv</a>
+              <a class="btn btn-secondary" href="#profiel">Bekijk profiel & cv</a>
             </div>
             <ul class="check-list">
               <li>Interim Head of Engineering en Engineering Manager</li>
@@ -81,17 +66,17 @@ const experience = [
       <div class="container two-col">
         <div>
           <p class="eyebrow">Over mij</p>
-          <h2>Rust, overzicht en richting waar complexiteit vertraagt</h2>
+          <h2>“Werken moet leuk zijn”</h2>
           <p>
-            Ik werk als onafhankelijk interim IT- en softwareleider. Ik help organisaties bij het
-            bouwen en verbeteren van engineering teams, het aansturen van softwareontwikkeling, het
-            versterken van productmanagement en het realiseren van IT-verandering.
+            Bij mij ben je geen nummer, maar een persoon. Ik wil dat mensen zich betrokken voelen bij
+            de opdrachten die ze uitvoeren en de projecten die ze beheren. Ik maak iedereen
+            verantwoordelijk voor het eigen werk, omdat ik geloof dat samenwerking en eigenaarschap tot
+            het beste resultaat leiden.
           </p>
           <p>
-            Mijn ervaring heb ik opgebouwd in omgevingen waar continuïteit, betrouwbaarheid en
-            bestuurbaarheid direct impact hebben. Ik beweeg me gemakkelijk tussen strategie en
-            uitvoering, bestuur en operatie, mens en resultaat. Mijn stijl is helder, betrokken en
-            koersvast.
+            Ik neem mijn verantwoordelijkheid als het erop aankomt en heb een goed gevoel voor hoe een
+            organisatie werkt en waar de knelpunten liggen. Positief kritisch, met een gezonde dosis
+            humor.
           </p>
         </div>
         <div class="card feature-card premium-visual">
@@ -103,11 +88,10 @@ const experience = [
             loading="lazy"
             decoding="async"
           />
-          <h3>“Werken moet leuk zijn”</h3>
+          <h3>“Hoe kan ik je helpen?”</h3>
           <p>
-            Ik geloof dat samenwerking en eigenaarschap tot het beste resultaat leiden. Iedereen is
-            verantwoordelijk voor het eigen werk, en ik neem mijn verantwoordelijkheid als het erop
-            aankomt.
+            Een vraag die je mij vaak hoort stellen. Ik begin bij wat een team of organisatie nodig
+            heeft, en stuur van daaruit op resultaat.
           </p>
         </div>
       </div>
@@ -150,26 +134,39 @@ const experience = [
       </div>
     </section>
 
-    <section class="section section-alt" id="ervaring">
+    <section class="section section-alt" id="profiel">
       <div class="container profile-grid">
         <div>
-          <p class="eyebrow">Ervaring & cv</p>
+          <p class="eyebrow">Profiel & cv</p>
           <h2 class="profile-name-heading">Henk van der Weele</h2>
           <p class="lead-small">
             Senior interim IT- en softwareleider. Inzetbaar voor engineering management, software
             delivery en product leadership.
           </p>
-          <ol class="timeline">
-            {experience.map((item) => (
-              <li>
-                <span class="timeline-when">{item.when}</span>
-                <div>
-                  <h3 class="timeline-org">{item.org}</h3>
-                  <p class="timeline-role">{item.role}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
+          <p>
+            Ik werk als onafhankelijk interim IT- en softwareleider, via mijn eigen bv SolutionXL BV.
+            Ik ondersteun organisaties bij het bouwen en verbeteren van engineering teams, het
+            aansturen van softwareontwikkeling, het versterken van productmanagement en het realiseren
+            van IT-verandering.
+          </p>
+          <p>
+            Mijn ervaring heb ik opgebouwd in sectoren waar continuïteit, betrouwbaarheid en
+            bestuurbaarheid direct impact hebben, waaronder banking, verzekeringen, luchtvaart,
+            energie, mobiliteit, non-profit en de publieke sector. Daarbij werkte ik onder meer voor
+            organisaties als ABN AMRO, International Card Services, Transavia, Vattenfall, Achmea,
+            Moves/PON Automotive, Rainforest Alliance, het Ministerie van Defensie en Sportlink.
+          </p>
+          <p>
+            Met ruime ervaring in zowel corporate als publieke omgevingen beweeg ik me gemakkelijk
+            tussen strategie en uitvoering, bestuur en operatie, mens en resultaat. Mijn stijl is
+            helder, betrokken en koersvast: ik breng rust, overzicht en richting waar complexiteit
+            dreigt te vertragen.
+          </p>
+          <p>
+            Ik sta voor kwaliteit, aandacht en senioriteit. Geen traditioneel adviesbureau, maar
+            onafhankelijke inzet op plekken waar ervaring, bestuurlijke sensitiviteit en
+            executiekracht direct waarde toevoegen.
+          </p>
           <div class="tag-row">
             <span>Engineering Management</span>
             <span>Software Delivery</span>

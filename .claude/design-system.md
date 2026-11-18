@@ -19,7 +19,7 @@ Deze regels gaan vóór design-wensen. Een wijziging die ertegenin gaat, eerst v
 | | weele.nl | solutionxl.nl |
 |---|---|---|
 | Onderwerp | Henk als persoon en professional | SolutionXL BV als bedrijf |
-| Inhoud | Profiel, rollen, ervaring, cv, beschikbaarheid, contact | Diensten, dienstpagina's, cases, bewijs |
+| Inhoud | Persoon, rollen, profiel (lopende tekst), cv, beschikbaarheid, contact | Diensten, dienstpagina's, cases, ervaringstijdlijn (`Bewijs.astro`) |
 | Zoekintentie | Naam + rol ("Henk van der Weele", "interim head of engineering") | Dienst ("interim IT management", "software delivery") |
 | Schrijfstijl | **Ik-vorm** ("Ik help organisaties…") | Wij/bedrijfsvorm |
 
@@ -28,7 +28,8 @@ Deze regels gaan vóór design-wensen. Een wijziging die ertegenin gaat, eerst v
 - **Wordmark is "Henk van der Weele"**, nooit "SolutionXL BV".
 - SolutionXL BV komt alleen voor als contractvorm: sectie `#solutionxl`, de regel "Contractering: via SolutionXL BV" in de samenvatting, het bedrijfsblok in de contactkaart en de footer (`© Henk van der Weele · SolutionXL BV`). Altijd met link naar `https://www.solutionxl.nl/`.
 - **Geen dienstpagina's, geen cases** op weele.nl. Die horen op solutionxl.nl; hier staan *rollen*.
-- **Ervaringstijdlijn = één waarheid.** Jaartallen en rollen in `experience` (`src/pages/index.astro`) zijn identiek aan `src/components/Bewijs.astro` in `solutionxlbv/website` én aan het cv. Wijzig nooit één bron zonder de andere twee.
+- **Geen ervaringstijdlijn op weele.nl** (besloten 18-11-2026: Henk geeft de voorkeur aan het profiel als lopende tekst). Jaartallen en rollen per opdracht staan in het cv en op solutionxl.nl (`Bewijs.astro`).
+- **Organisatielijst = één waarheid.** De organisaties in de profieltekst (`#profiel`) komen voor in het cv en op solutionxl.nl. Nieuwe opdracht? Cv, solutionxl.nl en deze lijst samen bijwerken.
 - Geen claims, cijfers of jaartallen toevoegen die niet in het cv of op solutionxl.nl staan.
 - Geen generieke AI-blogartikelen om pagina's te vullen.
 - Contact-e-mail is `info@solutionxl.nl`.
@@ -36,9 +37,9 @@ Deze regels gaan vóór design-wensen. Een wijziging die ertegenin gaat, eerst v
 ### Paginastructuur (volgorde vast)
 
 1. Hero: eyebrow "Interim IT- & softwareleider", h1, lead in ik-vorm
-2. `#over`: Over mij (+ kaart "Werken moet leuk zijn")
+2. `#over`: Over mij: de persoonlijke kant uit het cv ("Werken moet leuk zijn", kaart "Hoe kan ik je helpen?")
 3. `#rollen`: vier rolkaarten
-4. `#ervaring`: tijdlijn + samenvattingskaart + cv-download
+4. `#profiel`: profiel als lopende tekst (ik-vorm, vier alinea's) + tags + samenvattingskaart + cv-download. Geen tekst dubbel met `#over`.
 5. `#aanpak`: werkwijze
 6. `#solutionxl`: beschikbaarheid (6–12 maanden) en contractering via SolutionXL BV
 7. `#contact` (footer)
@@ -166,7 +167,7 @@ Alleen onderstaande bestaan. Nieuwe component? Eerst voorstellen.
 ### Navigatie
 - `.site-header` — sticky, blurred (`backdrop-filter: blur(12px)`), semi-transparante achtergrond
 - `.brand` — Cormorant 600, 2rem — wordmark, tekst **"Henk van der Weele"**
-- `.nav a` — Inter 500, color `--muted`. Items: Over mij · Rollen · Ervaring & cv · Aanpak · Contact
+- `.nav a` — Inter 500, color `--muted`. Items: Over mij · Rollen · Profiel & cv · Aanpak · Contact
 - Op ≤ 640px is de header `position: static` en hebben nav-links `padding: .55rem 0` (44px tap target)
 
 ### Hero
@@ -194,12 +195,6 @@ Alleen onderstaande bestaan. Nieuwe component? Eerst voorstellen.
 ### Lijsten en chips
 - `.check-list`, `.steps` — ul/ol met consistente spacing
 - `.tag-row span`, `.pill-row span` — pill met accent-tint achtergrond
-
-### Tijdlijn (toegevoegd 18-11-2026)
-- `ol.timeline` in `#ervaring`; data uit de `experience`-array (zie §0)
-- Per item: `.timeline-when` (Inter 700, 0.85rem, `--accent-text`) · `h3.timeline-org` (Cormorant, 1.3rem) · `p.timeline-role` (`--muted`)
-- Grid `7.5rem 1fr` met `--line` tussen items; onder 640px één kolom
-- Geen iconen, bolletjes of verticale lijnen toevoegen
 
 ### Grids
 - `.cards-4` — 4-koloms op desktop, 1-koloms onder 980px
