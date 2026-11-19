@@ -4,7 +4,7 @@ Persoonlijke profielwebsite van Henk van der Weele. Astro · static · Cloudflar
 
 weele.nl gaat over Henk als professional; solutionxl.nl over het bedrijf. Positionering, contentregels en deploy-governance staan in [`.claude/design-system.md`](.claude/design-system.md) — lees die vóór je iets wijzigt.
 
-**Werkwijze:** nooit direct naar `main`. Feature branch → PR → Cloudflare-preview → merge door Henk.
+**Werkwijze:** nooit direct naar `main`. Feature branch → PR → Cloudflare-preview → merge na akkoord van Henk (door Henk of door Claude).
 
 ## Stack
 
