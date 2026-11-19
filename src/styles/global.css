@@ -178,6 +178,9 @@ p { margin: 0 0 1rem; }
 .profile-list div:last-child { border-bottom: 0; }
 .profile-list dt { font-weight: 700; }
 .profile-list dd { margin: 0; color: var(--muted); }
+/* Board roles (#bestuur): same card as the summary, role name in ink above the description. */
+.board-grid { align-items: start; }
+.board-list dd strong { display: block; color: var(--text); font-weight: 600; margin-bottom: .15rem; }
 .contact-company { margin: 1rem 0 0; padding-top: 1rem; border-top: 1px solid var(--line); color: var(--muted); }
 .site-footer { padding: 3rem 0 1rem; }
 .contact-card { justify-self: end; width: min(100%, 420px); }

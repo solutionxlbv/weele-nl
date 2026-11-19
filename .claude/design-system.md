@@ -19,7 +19,7 @@ Deze regels gaan vóór design-wensen. Een wijziging die ertegenin gaat, eerst v
 | | weele.nl | solutionxl.nl |
 |---|---|---|
 | Onderwerp | Henk als persoon en professional | SolutionXL BV als bedrijf |
-| Inhoud | Persoon, rollen, profiel (lopende tekst), cv, beschikbaarheid, contact | Diensten, dienstpagina's, cases, ervaringstijdlijn (`Bewijs.astro`) |
+| Inhoud | Persoon, rollen, profiel (lopende tekst), bestuursrollen, cv, beschikbaarheid, contact | Diensten, dienstpagina's, cases, ervaringstijdlijn (`Bewijs.astro`) |
 | Zoekintentie | Naam + rol ("Henk van der Weele", "interim head of engineering") | Dienst ("interim IT management", "software delivery") |
 | Schrijfstijl | **Ik-vorm** ("Ik help organisaties…") | Wij/bedrijfsvorm |
 
@@ -33,6 +33,7 @@ Deze regels gaan vóór design-wensen. Een wijziging die ertegenin gaat, eerst v
 - Geen claims, cijfers of jaartallen toevoegen die niet in het cv of op solutionxl.nl staan.
 - Geen generieke AI-blogartikelen om pagina's te vullen.
 - Contact-e-mail is `info@solutionxl.nl`.
+- **Bestuursrollen staan op weele.nl** (besloten 19-11-2026): voorzitter sv Diemen, Sportraad Diemen en Programmaraad Studio DMN zijn persoonlijke rollen, geen dienst van SolutionXL BV. solutionxl.nl noemt ze in één zin in "Over" met een link naar `/#bestuur`. Wijzigt een rol of periode? Hier en die zin op solutionxl.nl samen bijwerken.
 
 ### Paginastructuur (volgorde vast)
 
@@ -40,9 +41,10 @@ Deze regels gaan vóór design-wensen. Een wijziging die ertegenin gaat, eerst v
 2. `#over`: Over mij: de persoonlijke kant uit het cv ("Werken moet leuk zijn", kaart "Hoe kan ik je helpen?")
 3. `#rollen`: vier rolkaarten
 4. `#profiel`: profiel als lopende tekst (ik-vorm, vier alinea's) + tags + samenvattingskaart + cv-download. Geen tekst dubbel met `#over`.
-5. `#aanpak`: werkwijze
-6. `#solutionxl`: beschikbaarheid (6–12 maanden) en contractering via SolutionXL BV
-7. `#contact` (footer)
+5. `#bestuur`: "Ook waar het niet betaalt": intro links, kaart "Bestuursrollen" rechts (`.profile-card` + `.profile-list.board-list`: periode als `dt`, rol vet + omschrijving als `dd`)
+6. `#aanpak`: werkwijze
+7. `#solutionxl`: beschikbaarheid (6–12 maanden) en contractering via SolutionXL BV
+8. `#contact` (footer)
 
 Secties wisselen af tussen `.section` en `.section.section-alt`.
 
